@@ -1,23 +1,20 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building mtest2 ...'
-                sh 'mvn package'
+   environment {
+      dockerImage = ''
+   }
+   agent any
+   stages {
+      stage('Compile the project and build the release package (jar)') {
+         steps {
+            sh 'mvn package'
+         }
+      }
+      stage('Build the Docker image') {
+         steps{
+            script {
+               dockerImage = docker.build "mtest" + ":$BUILD_NUMBER"
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing mtest2 ...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying mtest2 ....'
-            }
-        }
-    }
+         }
+      }
+   }
 }
-
