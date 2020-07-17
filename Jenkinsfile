@@ -12,7 +12,7 @@ pipeline {
       stage('Build the Docker image') {
          steps{
             script {
-               dockerImage = docker.build
+               dockerImage = docker.build "mtest:latest"
             }
          }
       }
