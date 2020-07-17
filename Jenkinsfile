@@ -1,7 +1,7 @@
 pipeline {
    environment {
       dockerImage = ''
-      registry = "docker_hub_account/repository_name"
+      registry = $PIPELINE-2-REGISTRY
       registryCredential = 'dockerhub'
    }
    agent any
@@ -14,8 +14,8 @@ pipeline {
       stage('Build the Docker image') {
          steps{
             script {
-               dockerImage = docker.build "mtest:latest"
-            }
+               dockerImage = docker.build registry + ":latest"
+e           }
          }
       }
       stage('Push the Docker image') {
