@@ -15,7 +15,7 @@ pipeline {
          steps{
             script {
                dockerImage = docker.build registry + ":latest"
-e           }
+            }
          }
       }
       stage('Push the Docker image') {
